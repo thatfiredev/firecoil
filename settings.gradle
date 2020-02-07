@@ -1,0 +1,2 @@
+include ':sampleapp', ':firecoil'
+rootProject.name='Fire Coil'
