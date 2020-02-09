@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "12345678900",
+    "firebase_url": "https://mock-firecoil.firebaseio.com",
+    "project_id": "mock-firecoil",
+    "storage_bucket": "mock-firecoil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12345678900:android:df154f3575db0dcd",
+        "android_client_info": {
+          "package_name": "io.github.rosariopfernandes.firecoilsampleapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12345678900-rapf47bnrg6jrsfbvkmhc6cj3hgige6l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.rosariopfernandes.firecoilsampleapp",
+            "certificate_hash": "4cd2225c0352b062af7135e390bf3318b13c5cc1"
+          }
+        },
+        {
+          "client_id": "12345678900-a4lskkl4lhskgc4nnkbtrpihepahl468.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "12345678900-a4lskkl4lhskgc4nnkbtrpihepahl468.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBueHGa2LYlwZEcJ6zKJ5_ZdtyFMu8sJsg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12345678900-a4lskkl4lhskgc4nnkbtrpihepahl468.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
