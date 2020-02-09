@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">Fire Coil Sample</string>
+    <string name="app_name">firecoil Sample</string>
     <string name="title_activity_main">Main Activity</string>
+    <string name="hint_select_load">You can select one of the methods bellow to load your image</string>
+    <string name="action_load_imageview_ktx">Load using ImageView KTX</string>
+    <string name="action_load_imageloader_get">Load using ImageLoader.get()</string>
+    <string name="action_load_imageloader_load">Load using ImageLoader.load()</string>
+    <string name="message_image_loaded">Method selected: %s</string>
+    <string name="error_loading_image">Couldnt load image: %s</string>
 </resources>

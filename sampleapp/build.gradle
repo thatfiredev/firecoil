@@ -4,11 +4,13 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "io.github.rosariopfernandes.firecoil"
+        applicationId "io.github.rosariopfernandes.firecoilsampleapp"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
@@ -21,6 +23,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -32,6 +45,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
 
     implementation project(':firecoil')
+    implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
