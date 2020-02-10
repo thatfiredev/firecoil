@@ -1,15 +1,22 @@
 [![Build Status](https://travis-ci.org/rosariopfernandes/firecoil.svg?branch=master)](https://travis-ci.org/rosariopfernandes/firecoil)
+[![](https://jitpack.io/v/rosariopfernandes/firecoil.svg)](https://jitpack.io/#rosariopfernandes/firecoil)
 
 # firecoil
 
-fireXtensions are a set of Kotlin extension functions that aim to simplify the way you use the
- Firebase SDK for Android.
+**First things first: What is Cloud Storage?**
+[Cloud Storage for Firebase](https://firebase.google.com/docs/storage/) is a Firebase Service for storing
+ user-generated content, such as Images, Videos, Audios, etc.
+
+firecoil allows you to load images from Cloud Storage in your Android app, using the image loading
+ library [Coil](https://github.com/coil-kt/coil).
 
 # Getting Started
 
 ## Prerequisites
 
-- Android minSDKVersion 16
+- AndroidX
+- Android Min SDK 16+
+- Compile SDK 29+
 - Java 8 (see [how to enable Java 8](#java-8))
 
 ## Adding the dependency
@@ -29,7 +36,7 @@ Step 2 - Add the dependency to your app's `build.gradle` file:
     dependencies {
         // other dependencies
 
-        implementation 'com.github.rosariopfernandes.firecoil:firecoil:0.0.1'
+        implementation 'com.github.rosariopfernandes:firecoil:0.0.1'
 
         // If you're not already using Coil, also add its dependency:
         implementation 'io.coil-kt:coil:0.9.4'
@@ -137,4 +144,4 @@ review the [contributing guidelines](CONTRIBUTING.md).
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 # Acknowledgments
-* Inspired by [FirebaseUI Storage](https://github.com/firebase/FirebaseUI-Android)
+* Inspired by [FirebaseUI for Storage](https://github.com/firebase/FirebaseUI-Android/tree/master/storage)
