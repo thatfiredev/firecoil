@@ -3,11 +3,10 @@
 
 # firecoil
 
-**First things first: What is Cloud Storage?**
-[Cloud Storage for Firebase](https://firebase.google.com/docs/storage/) is a Firebase Service for storing
- user-generated content, such as Images, Videos, Audios, etc.
-
-firecoil allows you to load images from Cloud Storage in your Android app, using the image loading
+firecoil allows you to load images from [Cloud Storage for Firebase](https://firebase.google.com/docs/storage/)
+ in your Android app
+ (through a [StorageReference](https://firebase.google.com/docs/reference/android/com/google/firebase/storage/StorageReference))
+ ,  using the image loading
  library [Coil](https://github.com/coil-kt/coil).
 
 # Getting Started
