@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
-import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import io.github.rosariopfernandes.firecoil.StorageReferenceFetcher
 import io.github.rosariopfernandes.firecoil.get
 import io.github.rosariopfernandes.firecoil.load
@@ -27,8 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageLoader: ImageLoader
 
     // TODO(developer): Change this to point to your image's path in Cloud Storage
-    private val storageRef = FirebaseStorage.getInstance().reference
-        .child("example.jpg")
+    private val storageRef = Firebase.storage.reference.child("example.jpg")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
