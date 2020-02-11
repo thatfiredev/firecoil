@@ -11,8 +11,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
-import okhttp3.Call
-import okhttp3.OkHttpClient
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertEquals
@@ -27,13 +25,11 @@ class StorageReferenceFetcherTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
     private lateinit var mainDispatcher: TestCoroutineDispatcher
-    private lateinit var callFactory: Call.Factory
     private lateinit var pool: BitmapPool
 
     @Before
     fun before() {
         mainDispatcher = TestCoroutineDispatcher().apply { Dispatchers.setMain(this) }
-        callFactory = OkHttpClient()
         pool = BitmapPool(0)
     }
 
@@ -58,7 +54,7 @@ class StorageReferenceFetcherTest {
         assertTrue(fetcher.handles(storageReference))
         assertEquals(storageReference.path, fetcher.key(storageReference))
 
-        // TODO: Find a way to mock the fetch
+        // TODO: Test the fetch once we find a way to mock it
         //
         // val result = runBlocking {
         //     fetcher.fetch(pool, storageReference, PixelSize(100, 100), createOptions())
