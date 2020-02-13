@@ -5,6 +5,6 @@
   ],
   "content": "README.md",
   "related": [
-    "firebase/firebaseui-android/storage/readme.md"
+    "firebase/firebaseui-android"
   ]
 }
