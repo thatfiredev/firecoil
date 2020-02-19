@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             // Since ImageLoader.get() is a suspend function,
             // it must be called from a Coroutine builder
             lifecycleScope.launch {
-                val drawable = FireCoil.loader(this@MainActivity).get(storageRef) {
+                val drawable = FireCoil.get(this@MainActivity, storageRef) {
                     // Optionally: Add get params here
                 }
                 imageView.setImageDrawable(drawable)
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnLoad.setOnClickListener {
-            val request = FireCoil.loader(this).load(this, storageRef) {
+            val request = FireCoil.load(this, storageRef) {
                 // Load into the ImageView
                 target(imageView)
 
