@@ -3,18 +3,12 @@
 ## Custom Targets
 
 If you need to load your image in something other than an ImageView, like the background
- of a LinearLayout, for example, you can do it by creating an ImageLoader:
+ of a LinearLayout for example, you can do it by using the `FireCoil` singleton:
 
 ```kotlin
 val linearLayout: LinearLayout = ...
 
-val imageLoader = ImageLoader(this) {
-    componentRegistry {
-        add(StorageReferenceFetcher())
-    }
-}
-
-imageLoader.load(this, storageRef) {
+FireCoil.load(this, storageRef) {
     target { drawable ->
         linearLayout.background = drawable
     }
@@ -43,10 +37,10 @@ Coil also provides `ImageLoader.get()`, which is a `suspend` function, so you ca
 
 ```kotlin
 launch {
-    val drawable = imageLoader.get(storageRef) {
+    val drawable = FireCoil.get(storageRef) {
         size(width, height)
     }
 }
 ```
 
-See more options under [Extended Usage](docs/extended_usage.md).
+See more usage options under [Extended Usage](/docs/extended_usage.md).

@@ -15,7 +15,7 @@ val imageLoader = ImageLoader(context) {
         add(StorageReferenceFetcher())
 
         // Add other Mappers and/or Decoders:
-        add(ProductMapper)
+        add(ProductMapper())
         add(GifDecoder())
     }
 }
@@ -53,6 +53,16 @@ And display it on an ImageView using:
 ```kotlin
 val product: Product = ...
 
+val imageLoader = ImageLoader(context) {
+    componentRegistry {
+        // This is the core of firecoil. Don't forget to add it
+        add(StorageReferenceFetcher())
+
+        // Add the custom Mapper:
+        add(ProductMapper())
+    }
+}
+
 imageView.loadAny(product, imageLoader)
 ```
 
@@ -67,7 +77,7 @@ For example, to add GIF support, add the Gif Decoder dependency to your gradle f
 implementation "io.coil-kt:coil-gif:0.9.5"
 ```
 
-and add it to your `ImageLoader`:
+and add it to your [`ImageLoader`](https://coil-kt.github.io/coil/image_loaders/):
 
 ```kotlin
 val imageLoader = ImageLoader(context) {

@@ -56,22 +56,10 @@ The ImageView.load() function returns a [RequestDisposable](https://coil-kt.gith
  which can be used to dispose the request:
 
 ```kotlin
-val request = imageLoader.load(storageRef)
+val request = imageView.load(storageRef)
 
 // Cancel the request
 request.dispose()
 ```
 
-## Using an ImageLoader
-
-Add the `StorageReferenceFetcher` when creating the [ImageLoader](https://coil-kt.github.io/coil/image_loaders/):
-
-```kotlin
-val imageLoader = ImageLoader(this) {
-    componentRegistry {
-        add(StorageReferenceFetcher())
-    }
-}
-```
-
-See more options under [Advanced Usage](docs/advanced_usage.md).
+See more usage options under [Advanced Usage](/docs/advanced_usage.md).
