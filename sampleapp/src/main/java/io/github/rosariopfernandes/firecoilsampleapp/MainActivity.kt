@@ -7,10 +7,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
-import coil.ImageLoader
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import io.github.rosariopfernandes.firecoil.StorageReferenceFetcher
+import io.github.rosariopfernandes.firecoil.FireCoil
 import io.github.rosariopfernandes.firecoil.get
 import io.github.rosariopfernandes.firecoil.load
 import kotlinx.coroutines.launch
@@ -24,8 +23,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnGet: Button
     private lateinit var btnLoad: Button
     private lateinit var imageView: ImageView
-
-    private lateinit var imageLoader: ImageLoader
 
     // TODO(developer): Change this to point to your image's path in Cloud Storage
     private val storageRef = Firebase.storage.reference.child("example.jpg")
@@ -55,19 +52,11 @@ class MainActivity : AppCompatActivity() {
             tvStatus.text = getString(R.string.message_image_loaded, "the ImageView KTX")
         }
 
-        // Note that you need to add the StorageReferenceFetcher
-        // when loading images through an ImageLoader
-        imageLoader = ImageLoader(this) {
-            componentRegistry {
-                add(StorageReferenceFetcher())
-            }
-        }
-
         btnGet.setOnClickListener {
             // Since ImageLoader.get() is a suspend function,
             // it must be called from a Coroutine builder
             lifecycleScope.launch {
-                val drawable = imageLoader.get(storageRef) {
+                val drawable = FireCoil.loader(this@MainActivity).get(storageRef) {
                     // Optionally: Add get params here
                 }
                 imageView.setImageDrawable(drawable)
@@ -77,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnLoad.setOnClickListener {
-            val request = imageLoader.load(this, storageRef) {
+            val request = FireCoil.loader(this).load(this, storageRef) {
                 // Load into the ImageView
                 target(imageView)
 
