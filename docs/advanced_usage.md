@@ -43,4 +43,4 @@ launch {
 }
 ```
 
-See more usage options under [Extended Usage](/docs/extended_usage.md).
+See more usage options under [Extended Usage](https://firebaseopensource.com/projects/rosariopfernandes/firecoil/docs/extended_usage.md/).

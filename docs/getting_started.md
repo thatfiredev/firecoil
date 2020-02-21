@@ -62,4 +62,4 @@ val request = imageView.load(storageRef)
 request.dispose()
 ```
 
-See more usage options under [Advanced Usage](/docs/advanced_usage.md).
+See more usage options under [Advanced Usage](https://firebaseopensource.com/projects/rosariopfernandes/firecoil/docs/advanced_usage.md/).

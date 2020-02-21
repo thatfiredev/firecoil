@@ -29,7 +29,7 @@ imageView.load(storageRef) {
 }
 ```
 
-See more usage options on the [Documentation](https://firebaseopensource.com/projects/rosariopfernandes/firecoil/docs/getting-started.md).
+See more usage options on the [Documentation](https://firebaseopensource.com/projects/rosariopfernandes/firecoil/docs/getting_started.md/).
 
 A [sample app](https://github.com/rosariopfernandes/firecoil/tree/master/sampleapp) is also available for trying out firecoil.
 
