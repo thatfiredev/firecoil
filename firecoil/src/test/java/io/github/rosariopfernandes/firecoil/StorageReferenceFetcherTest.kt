@@ -1,31 +1,57 @@
 package io.github.rosariopfernandes.firecoil
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
+import android.graphics.Bitmap
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import coil.bitmappool.BitmapPool
-import com.google.firebase.FirebaseApp
-import com.google.firebase.FirebaseOptions
-import com.google.firebase.storage.FirebaseStorage
+import coil.decode.DataSource
+import coil.decode.Options
+import coil.fetch.SourceResult
+import coil.request.CachePolicy
+import coil.request.Parameters
+import coil.size.PixelSize
+import coil.size.Scale
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.StreamDownloadTask
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import okhttp3.Headers
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
+import java.io.ByteArrayInputStream
 
-@RunWith(RobolectricTestRunner::class)
-@UseExperimental(ExperimentalCoroutinesApi::class)
+@RunWith(AndroidJUnit4::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class StorageReferenceFetcherTest {
-    private val context: Context = ApplicationProvider.getApplicationContext()
+
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var mainDispatcher: TestCoroutineDispatcher
     private lateinit var pool: BitmapPool
+    private val options = Options (
+        config = Bitmap.Config.ARGB_8888,
+        colorSpace = null,
+        scale = Scale.FILL,
+        allowInexactSize = false,
+        allowRgb565 = false,
+        headers = Headers.Builder().build(),
+        parameters = Parameters.Builder().build(),
+        networkCachePolicy = CachePolicy.ENABLED,
+        diskCachePolicy = CachePolicy.ENABLED
+    )
 
     @Before
     fun before() {
@@ -40,50 +66,32 @@ class StorageReferenceFetcherTest {
 
     @Test
     fun `basic firebase storage fetch`() {
+        val storageReference = mock(StorageReference::class.java)
+        val mockSnapshot = mock(StreamDownloadTask.TaskSnapshot::class.java)
+        val task = mock(StreamDownloadTask::class.java)
+
+        val mockStream = ByteArrayInputStream("test".toByteArray())
+
+        `when`(storageReference.stream).thenReturn(task)
+        `when`(storageReference.path).thenReturn("hello")
+        `when`(task.isComplete).thenReturn(true)
+        `when`(task.isCanceled).thenReturn(false)
+        `when`(task.result).thenReturn(mockSnapshot)
+
         val fetcher = StorageReferenceFetcher()
-        val firebaseApp = FirebaseApp.initializeApp(
-            context,
-            FirebaseOptions.Builder()
-                .setApiKey("apiKey")
-                .setApplicationId("appId")
-                .setStorageBucket("my-bucket.appspot.com")
-                .build()
-        )
-        val storageReference = FirebaseStorage.getInstance(firebaseApp)
-            .reference.child("test.png")
         assertTrue(fetcher.handles(storageReference))
         assertEquals(storageReference.path, fetcher.key(storageReference))
 
-        // TODO: Test the fetch once we find a way to mock it
-        //
-        // val result = runBlocking {
-        //     fetcher.fetch(pool, storageReference, PixelSize(100, 100), createOptions())
-        // }
-        //
-        // assertTrue(result is SourceResult)
-    }
+        val result = runBlocking {
+            `when`(storageReference.stream.await()).thenReturn(mockSnapshot)
+            `when`(mockSnapshot.stream).thenReturn(mockStream)
 
-//    private fun createOptions(
-//        config: Bitmap.Config = Bitmap.Config.ARGB_8888,
-//        colorSpace: ColorSpace? = null,
-//        scale: Scale = Scale.FILL,
-//        allowInexactSize: Boolean = false,
-//        allowRgb565: Boolean = false,
-//        headers: Headers = Headers.Builder().build(),
-//        parameters: Parameters = Parameters.Builder().build(),
-//        networkCachePolicy: CachePolicy = CachePolicy.ENABLED,
-//        diskCachePolicy: CachePolicy = CachePolicy.ENABLED
-//    ): Options {
-//        return Options(
-//            config,
-//            colorSpace,
-//            scale,
-//            allowInexactSize,
-//            allowRgb565,
-//            headers,
-//            parameters,
-//            networkCachePolicy,
-//            diskCachePolicy
-//        )
-//    }
+            fetcher.fetch(pool, storageReference, PixelSize(100, 100), options)
+        }
+        assertTrue(result is SourceResult)
+        if (result is SourceResult) {
+            assertTrue(result.dataSource == DataSource.NETWORK)
+            assertTrue(result.mimeType == null)
+        }
+    }
 }
