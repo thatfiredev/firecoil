@@ -24,10 +24,7 @@ Step 2 - Add the dependency to your app's `build.gradle` file:
     dependencies {
         // other dependencies
 
-        implementation 'com.github.rosariopfernandes:firecoil:0.0.1'
-
-        // If you're not already using Coil, also add its dependency:
-        implementation 'io.coil-kt:coil:0.9.4'
+        implementation 'com.github.rosariopfernandes:firecoil:0.0.2'
     }
 ```
 
