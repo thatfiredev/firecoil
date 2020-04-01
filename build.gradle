@@ -21,7 +21,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-
+        // TODO: Remove once 0.10.0 is released
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
 }
 
