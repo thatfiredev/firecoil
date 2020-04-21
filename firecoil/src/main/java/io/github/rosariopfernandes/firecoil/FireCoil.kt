@@ -1,13 +1,13 @@
 package io.github.rosariopfernandes.firecoil
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import coil.ImageLoader
-import coil.api.getAny
-import coil.api.loadAny
+import coil.request.GetRequest
 import coil.request.GetRequestBuilder
+import coil.request.LoadRequest
 import coil.request.LoadRequestBuilder
 import coil.request.RequestDisposable
+import coil.request.RequestResult
 import com.google.firebase.storage.StorageReference
 
 object FireCoil {
@@ -39,19 +39,31 @@ object FireCoil {
         context: Context,
         storageRef: StorageReference,
         builder: GetRequestBuilder.() -> Unit = {}
-    ): Drawable = loader(context).get(storageRef, builder)
+    ): RequestResult = loader(context).get(context, storageRef, builder)
 
     fun loadAny(
         context: Context,
         data: Any?,
         builder: LoadRequestBuilder.() -> Unit = {}
-    ): RequestDisposable = loader(context).loadAny(context, data, builder)
+    ): RequestDisposable {
+        val loadRequest = LoadRequest.Builder(context)
+            .data(data)
+            .apply(builder)
+            .build()
+        return loader(context).execute(loadRequest)
+    }
 
     suspend fun getAny(
         context: Context,
         data: Any,
         builder: GetRequestBuilder.() -> Unit = {}
-    ): Drawable = loader(context).getAny(data, builder)
+    ): RequestResult {
+        val getRequest = GetRequest.Builder(context)
+            .data(data)
+            .apply(builder)
+            .build()
+        return loader(context).execute(getRequest)
+    }
 
     @Synchronized
     private fun buildDefaultImageLoader(context: Context): ImageLoader {
@@ -59,11 +71,12 @@ object FireCoil {
         imageLoader?.let { return it }
 
         // Create a new ImageLoader.
-        val loader = ImageLoader(context) {
-            componentRegistry {
-                add(StorageReferenceFetcher())
-            }
-        }
+        val loader = ImageLoader.Builder(context)
+            .apply {
+                componentRegistry {
+                    add(StorageReferenceFetcher())
+                }
+            }.build()
         setDefaultImageLoader(loader)
         return loader
     }
