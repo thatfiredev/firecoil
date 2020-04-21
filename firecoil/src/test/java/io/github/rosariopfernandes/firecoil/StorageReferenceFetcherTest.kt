@@ -50,7 +50,8 @@ class StorageReferenceFetcherTest {
         headers = Headers.Builder().build(),
         parameters = Parameters.Builder().build(),
         networkCachePolicy = CachePolicy.ENABLED,
-        diskCachePolicy = CachePolicy.ENABLED
+        diskCachePolicy = CachePolicy.ENABLED,
+        memoryCachePolicy = CachePolicy.ENABLED
     )
 
     @Before
