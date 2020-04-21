@@ -1,13 +1,13 @@
 package io.github.rosariopfernandes.firecoil
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import coil.ImageLoader
 import coil.request.GetRequest
 import coil.request.GetRequestBuilder
 import coil.request.LoadRequest
 import coil.request.LoadRequestBuilder
 import coil.request.RequestDisposable
+import coil.request.RequestResult
 import com.google.firebase.storage.StorageReference
 
 object FireCoil {
@@ -39,7 +39,7 @@ object FireCoil {
         context: Context,
         storageRef: StorageReference,
         builder: GetRequestBuilder.() -> Unit = {}
-    ): Drawable = loader(context).get(storageRef, builder)
+    ): RequestResult = loader(context).get(context, storageRef, builder)
 
     fun loadAny(
         context: Context,
@@ -57,8 +57,8 @@ object FireCoil {
         context: Context,
         data: Any,
         builder: GetRequestBuilder.() -> Unit = {}
-    ): Drawable {
-        val getRequest = GetRequest.Builder()
+    ): RequestResult {
+        val getRequest = GetRequest.Builder(context)
             .data(data)
             .apply(builder)
             .build()

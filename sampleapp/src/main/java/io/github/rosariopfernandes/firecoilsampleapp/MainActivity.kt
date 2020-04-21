@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import coil.request.ErrorResult
+import coil.request.SuccessResult
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import io.github.rosariopfernandes.firecoil.FireCoil
@@ -44,11 +46,21 @@ class MainActivity : AppCompatActivity() {
             // Since ImageLoader.get() is a suspend function,
             // it must be called from a Coroutine builder
             lifecycleScope.launch {
-                val drawable = FireCoil.get(this@MainActivity, storageRef) {
+                val result = FireCoil.get(this@MainActivity, storageRef) {
                     // Optionally: Add get params here
                 }
-                imageView.setImageDrawable(drawable)
-                binding.tvStatus.text = getString(R.string.message_image_loaded, "ImageLoader.get()")
+                when (result) {
+                    is SuccessResult -> {
+                        val drawable = result.drawable
+                        imageView.setImageDrawable(drawable)
+                        binding.tvStatus.text = getString(R.string.message_image_loaded,
+                            "ImageLoader.get()")
+                    }
+                    is ErrorResult -> {
+                        binding.tvStatus.text = getString(R.string.error_loading_image,
+                            result.throwable.message)
+                    }
+                }
             }
             // ...
         }
