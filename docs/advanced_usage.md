@@ -37,8 +37,18 @@ Coil also provides `ImageLoader.get()`, which is a `suspend` function, so you ca
 
 ```kotlin
 launch {
-    val drawable = FireCoil.get(storageRef) {
+    val result = FireCoil.get(storageRef) {
         size(width, height)
+    }
+    when (result) {
+        is SuccessResult -> {
+            val drawable = result.drawable
+            // Use the drawable
+        }
+        is ErrorResult -> {
+            val throwable = result.throwable
+            // Handle the error
+        }
     }
 }
 ```
