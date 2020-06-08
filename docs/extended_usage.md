@@ -9,8 +9,8 @@ firecoil can also be extended with custom components such as [Mappers](https://c
 You simply need to add these components to the ImageLoader through its [componentRegistry](https://coil-kt.github.io/coil/api/coil-base/coil/-component-registry):
 
 ```kotlin
-val imageLoader = ImageLoader(context) {
-    componentRegistry {
+val imageLoader = ImageLoader.Builder(context)
+    .componentRegistry {
         // This is the core of firecoil. Don't forget to add it
         add(StorageReferenceFetcher())
 
@@ -18,7 +18,7 @@ val imageLoader = ImageLoader(context) {
         add(ProductMapper())
         add(GifDecoder())
     }
-}
+    .build()
 ```
 
 ## Creating Custom Mappers
@@ -53,15 +53,15 @@ And display it on an ImageView using:
 ```kotlin
 val product: Product = ...
 
-val imageLoader = ImageLoader(context) {
-    componentRegistry {
+val imageLoader = ImageLoader.Builder(context)
+    .componentRegistry {
         // This is the core of firecoil. Don't forget to add it
         add(StorageReferenceFetcher())
 
         // Add the custom Mapper:
         add(ProductMapper())
     }
-}
+    .build()
 
 imageView.loadAny(product, imageLoader)
 ```
@@ -80,8 +80,8 @@ implementation "io.coil-kt:coil-gif:0.9.5"
 and add it to your [`ImageLoader`](https://coil-kt.github.io/coil/image_loaders/):
 
 ```kotlin
-val imageLoader = ImageLoader(context) {
-    componentRegistry {
+val imageLoader = ImageLoader.Builder(context)
+    .componentRegistry {
         // This is the core of firecoil. Don't forget to add it
         add(StorageReferenceFetcher())
 
@@ -92,5 +92,5 @@ val imageLoader = ImageLoader(context) {
             add(GifDecoder())
         }
     }
-}
+    .build()
 ```
