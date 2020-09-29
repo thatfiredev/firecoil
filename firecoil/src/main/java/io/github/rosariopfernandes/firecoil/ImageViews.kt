@@ -1,16 +1,15 @@
 package io.github.rosariopfernandes.firecoil
 
 import android.widget.ImageView
-import coil.request.LoadRequest
-import coil.request.LoadRequestBuilder
-import coil.request.RequestDisposable
+import coil.request.Disposable
+import coil.request.ImageRequest
 import com.google.firebase.storage.StorageReference
 
 inline fun ImageView.load(
     data: StorageReference,
-    builder: LoadRequestBuilder.() -> Unit = {}
-): RequestDisposable {
-    val loadRequest = LoadRequest.Builder(context).data(data).target(this@load)
+    builder: ImageRequest.Builder.() -> Unit = {}
+): Disposable {
+    val loadRequest = ImageRequest.Builder(context).data(data).target(this@load)
         .apply(builder).build()
-    return FireCoil.loader(context).execute(loadRequest)
+    return FireCoil.loader(context).enqueue(loadRequest)
 }
