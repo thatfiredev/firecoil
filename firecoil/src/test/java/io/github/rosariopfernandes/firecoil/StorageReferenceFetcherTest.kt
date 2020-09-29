@@ -3,7 +3,8 @@ package io.github.rosariopfernandes.firecoil
 import android.graphics.Bitmap
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import coil.bitmappool.BitmapPool
+import androidx.test.platform.app.InstrumentationRegistry
+import coil.bitmap.BitmapPool
 import coil.decode.DataSource
 import coil.decode.Options
 import coil.fetch.SourceResult
@@ -42,6 +43,7 @@ class StorageReferenceFetcherTest {
     private lateinit var mainDispatcher: TestCoroutineDispatcher
     private lateinit var pool: BitmapPool
     private val options = Options (
+        context = InstrumentationRegistry.getInstrumentation().context,
         config = Bitmap.Config.ARGB_8888,
         colorSpace = null,
         scale = Scale.FILL,
