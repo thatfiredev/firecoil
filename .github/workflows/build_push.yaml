@@ -15,6 +15,6 @@ jobs:
       - shell: bash
         env:
           GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
-        run: echo $GOOGLE_SERVICES | base64 --decode > app/google-services.json
+        run: echo $GOOGLE_SERVICES | base64 --decode > sampleapp/google-services.json
       - name: Build with Gradle
         run: ./gradlew clean test
