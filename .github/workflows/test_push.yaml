@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    name: Run tests (push)
+    name: Run tests
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
