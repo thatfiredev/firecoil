@@ -1,10 +1,10 @@
-name: Build Pull Request
+name: Test Pull Request
 
 on: [pull_request]
 
 jobs:
   build:
-    name: Build Pull Request
+    name: Run tests
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
@@ -14,5 +14,5 @@ jobs:
           java-version: 1.8
       - name: Copy mock google_services.json
         run: cp mock-google-services.json sampleapp/google-services.json
-      - name: Build with Gradle
+      - name: Run Tests with gradle
         run: ./gradlew clean testDebugUnitTest check
