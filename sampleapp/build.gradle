@@ -47,7 +47,7 @@ dependencies {
 
     implementation project(':firecoil')
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.4.0'
