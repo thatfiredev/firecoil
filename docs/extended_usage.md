@@ -12,11 +12,12 @@ You simply need to add these components to the ImageLoader through its [componen
 val imageLoader = ImageLoader.Builder(context)
     .componentRegistry {
         // This is the core of firecoil. Don't forget to add it
-        add(StorageReferenceFetcher())
+        add(StorageReferenceKeyer())
+        add(StorageReferenceFetcher.Factory())
 
         // Add other Mappers and/or Decoders:
         add(ProductMapper())
-        add(GifDecoder())
+        add(GifDecoder.Factory())
     }
     .build()
 ```
@@ -56,7 +57,8 @@ val product: Product = ...
 val imageLoader = ImageLoader.Builder(context)
     .componentRegistry {
         // This is the core of firecoil. Don't forget to add it
-        add(StorageReferenceFetcher())
+        add(StorageReferenceKeyer())
+        add(StorageReferenceFetcher.Factory())
 
         // Add the custom Mapper:
         add(ProductMapper())
@@ -83,13 +85,14 @@ and add it to your [`ImageLoader`](https://coil-kt.github.io/coil/image_loaders/
 val imageLoader = ImageLoader.Builder(context)
     .componentRegistry {
         // This is the core of firecoil. Don't forget to add it
-        add(StorageReferenceFetcher())
+        add(StorageReferenceKeyer())
+        add(StorageReferenceFetcher.Factory())
 
         // Add the Gif Decoder:
         if (SDK_INT >= P) {
-            add(ImageDecoderDecoder())
+            add(ImageDecoder.Factory())
         } else {
-            add(GifDecoder())
+            add(GifDecoder.Factory())
         }
     }
     .build()

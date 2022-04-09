@@ -24,7 +24,7 @@ Step 2 - Add the dependency to your app's `build.gradle` file:
     dependencies {
         // other dependencies
 
-        implementation 'com.github.rosariopfernandes:firecoil:0.3.0'
+        implementation 'com.github.rosariopfernandes:firecoil:2.0.0-rc2'
     }
 ```
 
