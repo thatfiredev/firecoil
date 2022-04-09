@@ -1,6 +1,7 @@
 package io.github.rosariopfernandes.firecoil
 
 import android.content.Context
+import coil.ComponentRegistry
 import coil.ImageLoader
 import coil.request.Disposable
 import coil.request.ImageRequest
@@ -70,9 +71,10 @@ object FireCoil {
         // Create a new ImageLoader.
         val loader = ImageLoader.Builder(context)
             .apply {
-                componentRegistry {
-                    add(StorageReferenceFetcher())
-                }
+                components(fun ComponentRegistry.Builder.() {
+                    add(StorageReferenceKeyer())
+                    add(StorageReferenceFetcher.Factory())
+                })
             }.build()
         setDefaultImageLoader(loader)
         return loader

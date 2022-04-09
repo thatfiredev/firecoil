@@ -5,12 +5,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
 
     defaultConfig {
         applicationId "io.github.rosariopfernandes.firecoilsampleapp"
-        minSdkVersion 16
-        targetSdkVersion 30
+        minSdkVersion 21
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -46,7 +46,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     implementation project(':firecoil')
-    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
 
     testImplementation 'junit:junit:4.12'
