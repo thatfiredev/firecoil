@@ -1,35 +1,36 @@
 package io.github.rosariopfernandes.firecoil
 
-import coil.bitmap.BitmapPool
+import coil.ImageLoader
 import coil.decode.DataSource
-import coil.decode.Options
+import coil.decode.ImageSource
 import coil.fetch.FetchResult
 import coil.fetch.Fetcher
 import coil.fetch.SourceResult
-import coil.size.Size
+import coil.request.Options
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.tasks.await
 import okio.buffer
 import okio.source
 
-class StorageReferenceFetcher : Fetcher<StorageReference> {
+class StorageReferenceFetcher(
+    private val data: StorageReference,
+    private val options: Options
+) : Fetcher {
 
-    override suspend fun fetch(
-        pool: BitmapPool,
-        data: StorageReference,
-        size: Size,
-        options: Options
-    ): FetchResult {
+    override suspend fun fetch(): FetchResult {
         val taskSnapshot = data.stream.await()
 
         return SourceResult(
             dataSource = DataSource.NETWORK,
-            source = taskSnapshot.stream.source().buffer(),
+            source = ImageSource(taskSnapshot.stream.source().buffer(), options.context),
             mimeType = null
         )
     }
 
-    override fun key(data: StorageReference) = data.path
+    class Factory : Fetcher.Factory<StorageReference> {
 
-    override fun handles(data: StorageReference) = true
+        override fun create(data: StorageReference, options: Options, imageLoader: ImageLoader): Fetcher {
+            return StorageReferenceFetcher(data, options)
+        }
+    }
 }
