@@ -3,11 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.rosariopfernandes'
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 6
         versionName "1.3.0"
 
@@ -41,9 +41,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api 'io.coil-kt:coil-base:1.3.0'
-    implementation 'com.google.firebase:firebase-storage:20.0.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    api 'io.coil-kt:coil-base:1.4.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 
     // For tests
